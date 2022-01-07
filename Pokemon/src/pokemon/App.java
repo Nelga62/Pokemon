@@ -8,34 +8,50 @@ public class App {
 	private static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		int numOpcion = 0;
-		
-		while (numOpcion != 3) {
-			System.out.println("------------------------------------");
-			System.out.println("Elija una opción: ");
-			System.out.println("1. Utilizar los pokemons del juego");
-			System.out.println("2. Crear los pokemons aleatoriamente");
-			System.out.println("3. Salir");
-			System.out.println("------------------------------------");
-			numOpcion = scanner.nextInt();
+		System.out.println("------------------------------------");
+		System.out.println("Tipo de combate pokemon: ");
+		System.out.println("1. Combate 1vs1");
+		System.out.println("2. Combate " + NUM_POKEMONS + "vs" + NUM_POKEMONS);
+		System.out.println("------------------------------------");
+		int tipoCombate = scanner.nextInt();
 
-			switch (numOpcion) {
-			case 1:
-				initPokemons();
-				initCombat();
-				break;
-			case 2:
-				initPokemonsRandomly();
-				initCombat();
-				break;
-			case 3:
-				System.out.println("FIN DEL JUEGO");
-				break;
-			default:
-				System.out.println("Opción incorrecta");
-				break;
+		switch (tipoCombate) {
+		case 1:
+			int numOpcion = 0;
+			while (numOpcion != 3) {
+				System.out.println("------------------------------------");
+				System.out.println("Elija una opción: ");
+				System.out.println("1. Utilizar los pokemons del juego");
+				System.out.println("2. Crear los pokemons aleatoriamente");
+				System.out.println("3. Salir");
+				System.out.println("------------------------------------");
+				numOpcion = scanner.nextInt();
+
+				switch (numOpcion) {
+				case 1:
+					initPokemons();
+					initCombat();
+					break;
+				case 2:
+					initPokemonsRandomly();
+					initCombat();
+					break;
+				case 3:
+					System.out.println("FIN DEL JUEGO");
+					break;
+				default:
+					System.out.println("Opción incorrecta");
+					break;
+				}
 			}
+			break;
+		case 2:
+			initMultipleCombat();
+			break;
+		default:
+			System.out.println("Opción incorrecta");
 		}
+
 	}
 
 	private static void initPokemons() {
@@ -75,19 +91,58 @@ public class App {
 		System.out.println("Número del segundo pokemon: ");
 		int pokemon2 = scanner.nextInt();
 		System.out.println();
-		if(pokemon1 >= 1 && pokemon1 <= 5) {
-			if(pokemon2 >= 1 && pokemon2 <= 5) {
+		if (pokemon1 >= 1 && pokemon1 <= 5) {
+			if (pokemon2 >= 1 && pokemon2 <= 5) {
 				Battle.initBattle(pokemons[pokemon1 - 1], pokemons[pokemon2 - 1]);
-			}
-			else {
+			} else {
 				System.out.println("El número del segundo pokemon que has seleccionado no está disponible");
 			}
-		}
-		else {
+		} else {
 			System.out.println("El número del primer pokemon que has seleccionado no está disponible");
-			if(pokemon2 < 1 || pokemon2 > 5) {
+			if (pokemon2 < 1 || pokemon2 > 5) {
 				System.out.println("El número del segundo pokemon que has seleccionado no está disponible");
 			}
 		}
+	}
+
+	private static void initMultipleCombat() {
+		Pokemon[] pokemonsRandom = new Pokemon[NUM_POKEMONS];
+		initPokemonsRandomly();
+		for (int i = 0; i < pokemons.length; i++) {
+			pokemonsRandom[i] = pokemons[i];
+		}
+		initPokemons();
+		int contador = 0;
+
+		int contadorDerrotaPokemon = 0;
+		int contadorDerrotaPokemonRandom = 0;
+		while (contadorDerrotaPokemon < NUM_POKEMONS && contadorDerrotaPokemonRandom < NUM_POKEMONS) {
+			System.out.println("------------------------------------");
+			showPokemons();
+			System.out.println("------------------------------------");
+			System.out.println("Selecciona el pokemon que va a salir al campo de batalla: ");
+			int pokemonSeleccionado = scanner.nextInt();
+			if (pokemons[pokemonSeleccionado - 1].getHealth() <= 0) {
+				System.out.println("El pokemon " + pokemons[pokemonSeleccionado - 1].getName()
+						+ " ha sido derrotado, selecciona otro: ");
+
+			} else {
+				Battle.initBattle(pokemons[pokemonSeleccionado - 1], pokemonsRandom[contador]);
+				if (pokemons[pokemonSeleccionado - 1].getHealth() <= 0) {
+					contadorDerrotaPokemon++;
+				} else {
+					contadorDerrotaPokemonRandom++;
+					contador++;
+				}
+			}
+
+		}
+		System.out.println();
+		if (contadorDerrotaPokemon > contadorDerrotaPokemonRandom) {
+			System.out.println("DERROTA: Todos tus pokemon han sido derrotados");
+		} else {
+			System.out.println("VICTORIA: Todos los pokemon de tu rival han sido derrotados");
+		}
+		System.out.println("FIN DEL JUEGO");
 	}
 }
