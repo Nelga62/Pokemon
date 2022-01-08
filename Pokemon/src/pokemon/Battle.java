@@ -12,30 +12,30 @@ public class Battle {
 			if (pokemon1.getTipo() == "agua") {
 				if (pokemon2.getTipo() == "fuego" || pokemon2.getTipo() == "tierra") {
 					System.out.println("Por lo tanto la fuerza de " + pokemon1.getName() + " se multiplica por dos");
-					pokemon1.duplicarDaño();
+					pokemon1.duplicarFuerza();
 				} else {
 					System.out.println("Por lo tanto la fuerza de " + pokemon2.getName() + " se multiplica por dos");
-					pokemon2.duplicarDaño();
+					pokemon2.duplicarFuerza();
 				}
 			}
 
 			else if (pokemon1.getTipo() == "fuego") {
 				if (pokemon2.getTipo() == "agua" || pokemon2.getTipo() == "tierra") {
 					System.out.println("Por lo tanto la fuerza de " + pokemon2.getName() + " se multiplica por dos");
-					pokemon2.duplicarDaño();
+					pokemon2.duplicarFuerza();
 				} else if (pokemon2.getTipo() == "planta") {
 					System.out.println("Por lo tanto la fuerza de " + pokemon1.getName() + " se multiplica por dos");
-					pokemon1.duplicarDaño();
+					pokemon1.duplicarFuerza();
 				} else {
 					System.out.println("Por lo tanto la fuerza de ambos no varía");
 				}
 			} else if (pokemon1.getTipo() == "planta") {
 				if (pokemon2.getTipo() == "agua" || pokemon2.getTipo() == "tierra") {
 					System.out.println("Por lo tanto la fuerza de " + pokemon1.getName() + " se multiplica por dos");
-					pokemon1.duplicarDaño();
+					pokemon1.duplicarFuerza();
 				} else if (pokemon2.getTipo() == "fuego") {
 					System.out.println("Por lo tanto la fuerza de " + pokemon2.getName() + " se multiplica por dos");
-					pokemon2.duplicarDaño();
+					pokemon2.duplicarFuerza();
 				} else {
 					System.out.println("Por lo tanto la fuerza de ambos no varía");
 				}
@@ -44,10 +44,10 @@ public class Battle {
 			else if (pokemon1.getTipo() == "electrico") {
 				if (pokemon2.getTipo() == "agua") {
 					System.out.println("Por lo tanto la fuerza de " + pokemon1.getName() + " se multiplica por dos");
-					pokemon1.duplicarDaño();
+					pokemon1.duplicarFuerza();
 				} else if (pokemon2.getTipo() == "tierra") {
 					System.out.println("Por lo tanto la fuerza de " + pokemon2.getName() + " se multiplica por dos");
-					pokemon2.duplicarDaño();
+					pokemon2.duplicarFuerza();
 				} else {
 					System.out.println("Por lo tanto la fuerza de ambos no varía");
 				}
@@ -56,10 +56,10 @@ public class Battle {
 			else if (pokemon1.getTipo() == "tierra") {
 				if (pokemon2.getTipo() == "electrico" || pokemon2.getTipo() == "fuego") {
 					System.out.println("Por lo tanto la fuerza de " + pokemon1.getName() + " se multiplica por dos");
-					pokemon1.duplicarDaño();
+					pokemon1.duplicarFuerza();
 				} else {
 					System.out.println("Por lo tanto la fuerza de " + pokemon2.getName() + " se multiplica por dos");
-					pokemon2.duplicarDaño();
+					pokemon2.duplicarFuerza();
 				}
 			} else {
 				System.out.println("Error a la hora de ajustar la fuerza según el tipo");
@@ -92,8 +92,8 @@ public class Battle {
 		} else {
 			System.out.println(pokemon1.getName() + " ha perdido el combate");
 		}
-		pokemon1.dañoInicial();
-		pokemon2.dañoInicial();
+		pokemon1.fuerzaInicial();
+		pokemon2.fuerzaInicial();
 	}
 
 }

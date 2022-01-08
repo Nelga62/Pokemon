@@ -66,11 +66,11 @@ public class Pokemon {
 		return speed;
 	}
 
-	public void duplicarDaño() {
+	public void duplicarFuerza() {
 		strength += strength;
 	}
 
-	public void dañoInicial() {
+	public void fuerzaInicial() {
 		strength = originalStrength;
 	}
 }
