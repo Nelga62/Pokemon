@@ -55,15 +55,15 @@ public class App {
 	}
 
 	private static void initPokemons() {
-		Pokemon charizard = new Pokemon(100, 50, 50, "charizard");
+		Pokemon charizard = new Pokemon(100, 50, 50, "charizard", "fuego");
 		pokemons[0] = charizard;
-		Pokemon blastoise = new Pokemon(150, 25, 150, "blastoire");
+		Pokemon blastoise = new Pokemon(150, 25, 150, "blastoire", "agua");
 		pokemons[1] = blastoise;
-		Pokemon venusaur = new Pokemon(300, 10, 100, "venusaur");
+		Pokemon venusaur = new Pokemon(300, 10, 100, "venusaur", "planta");
 		pokemons[2] = venusaur;
-		Pokemon bulbasaur = new Pokemon(250, 20, 180, "bulbasaur");
+		Pokemon bulbasaur = new Pokemon(250, 20, 180, "bulbasaur", "tierra");
 		pokemons[3] = bulbasaur;
-		Pokemon pikachu = new Pokemon(300, 40, 200, "pikachu");
+		Pokemon pikachu = new Pokemon(300, 40, 200, "pikachu", "electrico");
 		pokemons[4] = pikachu;
 	}
 
@@ -71,6 +71,32 @@ public class App {
 		for (int i = 0; i < pokemons.length; i++) {
 			pokemons[i] = new Pokemon();
 			pokemons[i].setName("pokemon" + i);
+		}
+		int numeroRandomTipo = 0;
+		String tipo = "";
+		for (int i = 0; i < pokemons.length; i++) {
+			numeroRandomTipo = (int) (Math.random() * 5 + 1);
+			switch (numeroRandomTipo) {
+			case 1:
+				tipo = "agua";
+				break;
+			case 2:
+				tipo = "fuego";
+				break;
+			case 3:
+				tipo = "planta";
+				break;
+			case 4:
+				tipo = "electrico";
+				break;
+			case 5:
+				tipo = "tierra";
+				break;
+			default:
+				tipo = "";
+				break;
+			}
+			pokemons[i].setTipo(tipo);
 		}
 	}
 
@@ -116,12 +142,19 @@ public class App {
 
 		int contadorDerrotaPokemon = 0;
 		int contadorDerrotaPokemonRandom = 0;
+
 		while (contadorDerrotaPokemon < NUM_POKEMONS && contadorDerrotaPokemonRandom < NUM_POKEMONS) {
 			System.out.println("------------------------------------");
 			showPokemons();
 			System.out.println("------------------------------------");
-			System.out.println("Selecciona el pokemon que va a salir al campo de batalla: ");
-			int pokemonSeleccionado = scanner.nextInt();
+			int pokemonSeleccionado = 0;
+			while (pokemonSeleccionado < 1 || pokemonSeleccionado > 5) {
+				System.out.println("Selecciona el pokemon que va a salir al campo de batalla: ");
+				pokemonSeleccionado = scanner.nextInt();
+				if (pokemonSeleccionado < 1 || pokemonSeleccionado > 5) {
+					System.out.println("El número del pokemon que has seleccionado no está disponible");
+				}
+			}
 			if (pokemons[pokemonSeleccionado - 1].getHealth() <= 0) {
 				System.out.println("El pokemon " + pokemons[pokemonSeleccionado - 1].getName()
 						+ " ha sido derrotado, selecciona otro: ");
